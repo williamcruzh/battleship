@@ -43,23 +43,62 @@ public class PlayerTest {
 	public void testIsWinner() {
 		
 		int[][] board;
-		Player player;
-		Ship ship;
+		MockPlayer player;
 		List<Ship> ShipList = null;
 		
+		//case n=0
+		player = new MockPlayer();
+		board = new int[][] {{0}};
+		ShipList = null;
+		player.setOpponent(new MockPlayer(board,ShipList));
+		assertFalse(player.IsWinner());	
 		
+		//case n = 1 true
 		player = new MockPlayer();
 		board = new int[][] {{0}};
 		ShipList.add(new MockShip(3, false));
 		player.setOpponent(new MockPlayer(board,ShipList));
 		assertTrue(player.IsWinner());
 		
-		
+		//case n = 1 false
 		ShipList.clear();
 		player = new MockPlayer();
 		board = new int[][] {{0}};
 		ShipList.add(new MockShip(2, true));
 		player.setOpponent(new MockPlayer(board,ShipList));
 		assertFalse(player.IsWinner());
-		}
+		
+		//case n = 2 true
+		ShipList.clear();
+		player = new MockPlayer();
+		board = new int[][] {{0}};
+		player.setOpponent(new MockPlayer(board,ShipList));
+		player.makeShipList(2,false);
+		assertTrue(player.IsWinner());
+		
+		//case n = 2 false
+		ShipList.clear();
+		player = new MockPlayer();
+		board = new int[][] {{0}};
+		player.setOpponent(new MockPlayer(board,ShipList));
+		player.makeShipList(1,true);
+		assertFalse(player.IsWinner());
+		
+		//case n = 4 true
+		ShipList.clear();
+		player = new MockPlayer();
+		board = new int[][] {{0}};
+		player.setOpponent(new MockPlayer(board,ShipList));
+		player.makeShipList(4,false);
+		assertTrue(player.IsWinner());
+		
+		//case n = 4 false
+		ShipList.clear();
+		player = new MockPlayer();
+		board = new int[][] {{0}};
+		player.setOpponent(new MockPlayer(board,ShipList));
+		player.makeShipList(3,true);
+		assertFalse(player.IsWinner());
+		
+	}
 }
