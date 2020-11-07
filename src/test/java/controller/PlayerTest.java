@@ -38,4 +38,28 @@ public class PlayerTest {
 		player.shoot(0, 0);
 		assertThrows(Exception.class, () -> player.shoot(0, 0));
 	}
+	
+	@Test
+	public void testIsWinner() {
+		
+		int[][] board;
+		Player player;
+		Ship ship;
+		List<Ship> ShipList = null;
+		
+		
+		player = new MockPlayer();
+		board = new int[][] {{0}};
+		ShipList.add(new MockShip(3, false));
+		player.setOpponent(new MockPlayer(board,ShipList));
+		assertTrue(player.IsWinner());
+		
+		
+		ShipList.clear();
+		player = new MockPlayer();
+		board = new int[][] {{0}};
+		ShipList.add(new MockShip(2, true));
+		player.setOpponent(new MockPlayer(board,ShipList));
+		assertFalse(player.IsWinner());
+		}
 }
