@@ -36,21 +36,78 @@ public class ShipTest {
 		ship = new Ship(11);
 		m = 20; n = 20;
 		
-		ship.setOrientation(Orientation.VERTICAL);
-		ship.setPosition(11, 0);
-		assertTrue(ship.fitsInBoard(m, n));
+		// 0 0 0
+		// Impossible
 		
+		// 0 0 1
+		// Impossible
+		
+		// 0 1 0
+		ship = new Ship(21);
+		m = 20; n = 20;
 		ship.setOrientation(Orientation.VERTICAL);
-		ship.setPosition(12, 0);
+		ship.setPosition(-1, 0);
 		assertFalse(ship.fitsInBoard(m, n));
 		
+		// 0 1 1
+		ship.setOrientation(Orientation.VERTICAL);
+		ship.setPosition(-1, 0);
+		assertFalse(ship.fitsInBoard(m, n));
+		
+		// 1 0 0
+		ship.setOrientation(Orientation.VERTICAL);
+		ship.setPosition(20, 0);
+		assertFalse(ship.fitsInBoard(m, n));
+		
+		// 1 0 1
+		// Impossible
+		
+		// 1 1 0
+		ship.setOrientation(Orientation.VERTICAL);
+		ship.setPosition(17, 0);
+		assertFalse(ship.fitsInBoard(m, n));
+		
+		// 1 1 1
+		ship.setOrientation(Orientation.VERTICAL);
+		ship.setPosition(4, 0);
+		assertTrue(ship.fitsInBoard(m, n));
+
+		// 0 0 0
+		// Impossible
+		
+		// 0 0 1
+		// Impossible
+		
+		// 0 1 0
+		ship = new Ship(21);
+		m = 20; n = 20;
 		ship.setOrientation(Orientation.HORIZONTAL);
-		ship.setPosition(0, 11);
+		ship.setPosition(0, -1);
+		assertFalse(ship.fitsInBoard(m, n));
+		
+		// 0 1 1
+		ship.setOrientation(Orientation.HORIZONTAL);
+		ship.setPosition(0, -1);
+		assertFalse(ship.fitsInBoard(m, n));
+		
+		// 1 0 0
+		ship.setOrientation(Orientation.HORIZONTAL);
+		ship.setPosition(0, 20);
+		assertFalse(ship.fitsInBoard(m, n));
+		
+		// 1 0 1
+		// Impossible
+		
+		// 1 1 0
+		ship.setOrientation(Orientation.HORIZONTAL);
+		ship.setPosition(0, 17);
+		assertFalse(ship.fitsInBoard(m, n));
+		
+		// 1 1 1
+		ship.setOrientation(Orientation.HORIZONTAL);
+		ship.setPosition(0, 4);
 		assertTrue(ship.fitsInBoard(m, n));
 		
-		ship.setOrientation(Orientation.HORIZONTAL);
-		ship.setPosition(0, 12);
-		assertFalse(ship.fitsInBoard(m, n));
 	}
 	@Test
 	public void TestisSunk() {
