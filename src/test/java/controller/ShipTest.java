@@ -1,7 +1,9 @@
 package controller;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -12,11 +14,14 @@ public class ShipTest {
 	 */
 	@Test
 	public void ShipTest() {
-		MockShip ship = new MockShip(3);
-		
-		assertEquals(ship.getI(), 0);
-		assertEquals(ship.getJ(), 0);
-		assertEquals(ship.getI(), 0);
+		Ship ship = new Ship(3);	
+		assertEquals(ship.i, 0);
+		assertEquals(ship.j, 0);
+		assertEquals(ship.orientation, Orientation.VERTICAL);
+		assertNotEquals(ship.damagedZones, null);
+		assertArrayEquals(ship.damagedZones, new boolean[] {false, false, false});
+		assertTrue(!ship.sunk);
+		assertNotEquals(ship.coordinates, null);
 	}
 	/*
 	 * Here we are doing decision coverage, at first. And condition coverage
