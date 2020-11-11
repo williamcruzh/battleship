@@ -11,6 +11,20 @@ public class PlayerTest {
 	 * Here we are doing decision coverage. 
 	 */
 	@Test
+	public void setShipZone() {
+		Player player;
+		List<Ship> shipList = null;
+		
+		
+		int[][] board= new int[10][10];
+		player=new MockPlayer(board,shipList);
+		Ship ship = new Ship(2);
+		ship.setPosition(5, 2);
+		ship.updateCoordinates();
+		player.setShipZone(board, ship, 1, 5);
+		assertTrue(5==player.board[4][2]);	
+	}
+	@Test
 	public void shootTest() {
 		int[][] board;
 		
