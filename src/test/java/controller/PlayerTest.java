@@ -1,7 +1,11 @@
 package controller;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.util.Arrays;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -58,7 +62,22 @@ public class PlayerTest {
 		player.shoot(0, 0);
 		assertThrows(Exception.class, () -> player.shoot(0, 0));
 	}
-	
+	@Test 
+	public void positionShipsTest() {
+		List<Ship> ships = Arrays.asList(new Ship[] {new Ship(2),
+				                                     new Ship(2)});
+		Coord[] coordinatesOfSteps = {new Coord(2, 0),
+				                      new Coord(0, 0),
+				                      new Coord(0, 1),
+				                      new Coord(0, 2)};
+	    Orientation[] orientationsOfSteps = {Orientation.VERTICAL,
+	    		                             Orientation.VERTICAL,
+	    		                             Orientation.VERTICAL,
+	    		                             Orientation.VERTICAL};
+		MockPlayer player = new MockPlayer(3, 3, ships, coordinatesOfSteps,
+				                           orientationsOfSteps);
+		player.positionShips();
+	}
 	@Test
 	public void testIsWinner() {
 		
