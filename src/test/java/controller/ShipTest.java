@@ -109,6 +109,45 @@ public class ShipTest {
 		assertTrue(ship.fitsInBoard(m, n));
 		
 	}
+	/*
+	 * Here we are doing decision coverage, at first. And condition coverage
+	 * later. 
+	 */
+	@Test
+	public void isHitTest() {
+		// Decision Coverage
+		int m = 8; int n = 1;
+		Ship ship = new Ship(7);
+		ship.setOrientation(Orientation.VERTICAL);
+		ship.setPosition(0, 0);
+		
+		assertTrue(ship.isHit(6, 0));
+		
+		assertFalse(ship.isHit(7, 0));
+		
+		m = 1; n = 8;
+		ship.setOrientation(Orientation.HORIZONTAL);
+		
+		assertTrue(ship.isHit(0, 6));
+		
+		assertFalse(ship.isHit(0, 7));
+		
+		// Condition coverage
+		m = 7; n = 2;
+		ship = new Ship(5);
+		ship.setOrientation(Orientation.VERTICAL);
+		ship.setPosition(1, 0);
+		
+		// 0 0 0
+		// Impossible 
+		
+		// 0 0 1
+		// Impossible 
+		
+		// 0 1 0
+		ship.isHit(0, 1);
+		
+	}
 	@Test
 	public void TestisSunk() {
 		
