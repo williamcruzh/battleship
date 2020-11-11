@@ -270,8 +270,8 @@ public class ShipTest {
 		ship = new Ship(5);
 		ship.setOrientation(Orientation.VERTICAL);
 		ship.setPosition(2,4);
-		ship.shoot(7,4);
-		assertTrue(ship.isHit(7, 4));
+		ship.shoot(6,4);
+		assertTrue(ship.isHit(6, 4));
 		assertFalse(ship.isSunk());
 		
 		//case ship size 3 sunk. Vertical
@@ -333,14 +333,16 @@ public class ShipTest {
 	@Test
 	public void updateCoordinatesTest() {
 		Ship ship;
-		Coord coordinate[]=null;
+		
+		
 		
 		//ship size = 1
 		ship = new Ship(1);
 		ship.setOrientation(Orientation.VERTICAL);
 		ship.setPosition(2,3);
 		ship.updateCoordinates();
-		coordinate[0] = new Coord(2,3);
+		Coord coordinate[] = new Coord[1];
+		coordinate[0] = new Coord(2,3);; 
 		assertTrue(coordinate==ship.getCoordinates());
 		
 		//ship = 2 Vertical
@@ -348,8 +350,9 @@ public class ShipTest {
 		ship.setOrientation(Orientation.VERTICAL);
 		ship.setPosition(3,5);
 		ship.updateCoordinates();
-		coordinate[0] = new Coord(3,5);
-		coordinate[1] = new Coord(4,5);
+		Coord coordinate2[] = new Coord[2];
+		coordinate2[0] = new Coord(3,5);
+		coordinate2[1] = new Coord(4,5);
 		assertTrue(coordinate==ship.getCoordinates());
 		
 		//ship = 2 Horizontal
@@ -357,8 +360,8 @@ public class ShipTest {
 		ship.setOrientation(Orientation.HORIZONTAL);
 		ship.setPosition(1,1);
 		ship.updateCoordinates();
-		coordinate[0] = new Coord(1,1);
-		coordinate[1] = new Coord(1,2);
+		coordinate2[0] = new Coord(1,1);
+		coordinate2[1] = new Coord(1,2);
 		assertTrue(coordinate==ship.getCoordinates());
 		
 		//ship = 4 Vertical
@@ -366,10 +369,11 @@ public class ShipTest {
 		ship.setOrientation(Orientation.VERTICAL);
 		ship.setPosition(2,7);
 		ship.updateCoordinates();
-		coordinate[0] = new Coord(2,7);
-		coordinate[1] = new Coord(3,7);
-		coordinate[2] = new Coord(4,7);
-		coordinate[3] = new Coord(5,7);
+		Coord coordinate4[] = new Coord[4];
+		coordinate4[0] = new Coord(2,7);
+		coordinate4[1] = new Coord(3,7);
+		coordinate4[2] = new Coord(4,7);
+		coordinate4[3] = new Coord(5,7);
 		assertTrue(coordinate==ship.getCoordinates());
 		
 		//ship = 4 Horizontal
@@ -377,10 +381,10 @@ public class ShipTest {
 		ship.setOrientation(Orientation.HORIZONTAL);
 		ship.setPosition(6,3);
 		ship.updateCoordinates();
-		coordinate[0] = new Coord(6,3);
-		coordinate[1] = new Coord(6,4);
-		coordinate[2] = new Coord(6,5);
-		coordinate[3] = new Coord(6,6);
+		coordinate4[0] = new Coord(6,3);
+		coordinate4[1] = new Coord(6,4);
+		coordinate4[2] = new Coord(6,5);
+		coordinate4[3] = new Coord(6,6);
 		assertTrue(coordinate==ship.getCoordinates());
 	}
 }
