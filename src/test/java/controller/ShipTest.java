@@ -199,7 +199,7 @@ public class ShipTest {
 		assertEquals(ship.getOrientation(), Orientation.HORIZONTAL);
 	}
 	@Test
-	public void TestisSunk() {
+	public void isSunkTest() {
 		Ship ship;
 			
 		//case ship vertical sunk = true
@@ -218,10 +218,27 @@ public class ShipTest {
 		ship.shoot(2,4);
 		ship.shoot(4,4);
 		assertFalse(ship.isSunk());
+		
+		//case ship vertical sunk = true
+		ship = new Ship(3);
+		ship.setOrientation(Orientation.HORIZONTAL);
+		ship.setPosition(2,4);
+		ship.shoot(2,4);
+		ship.shoot(2,5);
+		ship.shoot(2,6);
+		assertTrue(ship.isSunk());
+		
+		//case ship vertical sunk = false
+		ship = new Ship(3);
+		ship.setOrientation(Orientation.HORIZONTAL);
+		ship.setPosition(2,4);
+		ship.shoot(2,6);
+		ship.shoot(2,5);
+		assertFalse(ship.isSunk());
+		
 	}
 	@Test
-	public void Testshoot() {
-		
+	public void shootTest() {
 		Ship ship;
 		
 		//case ship size = 3. Vertical. hit zone 2. not sunk
@@ -230,22 +247,6 @@ public class ShipTest {
 		ship.setPosition(2,4);
 		ship.shoot(3,4);
 		assertTrue(ship.isHit(3, 4));
-		assertFalse(ship.isSunk());
-		
-		//case ship size = 3. Vertical. hit zone 3. not sunk
-		ship = new Ship(3);
-		ship.setOrientation(Orientation.VERTICAL);
-		ship.setPosition(2,4);
-		ship.shoot(4,4);
-		assertTrue(ship.isHit(4, 4));
-		assertFalse(ship.isSunk());
-		
-		//case ship size = 5. Vertical. hit zone 1. not sunk
-		ship = new Ship(5);
-		ship.setOrientation(Orientation.VERTICAL);
-		ship.setPosition(2,4);
-		ship.shoot(2,4);
-		assertTrue(ship.isHit(2, 4));
 		assertFalse(ship.isSunk());
 			
 		//case ship size = 5. Vertical. hit zone 5. not sunk
@@ -265,7 +266,6 @@ public class ShipTest {
 		ship.shoot(4,4);
 		assertTrue(ship.isSunk());
 		
-		
 		//case ship size 5 sunk. Vertical
 		ship = new Ship(5);
 		ship.setOrientation(Orientation.VERTICAL);
@@ -276,5 +276,41 @@ public class ShipTest {
 		ship.shoot(5,4);
 		ship.shoot(6,4);
 		assertTrue(ship.isSunk());
+		
+		
+		//case ship size = 2. Horizontal. hit zone 1. not sunk
+		ship = new Ship(2);
+		ship.setOrientation(Orientation.HORIZONTAL);
+		ship.setPosition(4,1);
+		ship.shoot(4,1);
+		assertTrue(ship.isHit(4, 1));
+		assertFalse(ship.isSunk());
+		
+		//case ship size = 4. Horizontal. hit zone 2. not sunk
+		ship = new Ship(4);
+		ship.setOrientation(Orientation.HORIZONTAL);
+		ship.setPosition(4,1);
+		ship.shoot(4,2);
+		assertTrue(ship.isHit(4, 2));
+		assertFalse(ship.isSunk());
+		
+		//case ship size 2 sunk. Horizontal
+		ship = new Ship(2);
+		ship.setOrientation(Orientation.HORIZONTAL);
+		ship.setPosition(4,1);
+		ship.shoot(4,1);
+		ship.shoot(4,2);
+		assertTrue(ship.isSunk());
+		
+		//case ship size 4 sunk. Horizontal
+		ship = new Ship(4);
+		ship.setOrientation(Orientation.HORIZONTAL);
+		ship.setPosition(4,1);
+		ship.shoot(4,1);
+		ship.shoot(4,2);
+		ship.shoot(4,3);
+		ship.shoot(4,4);
+		assertTrue(ship.isSunk());
+		
 	}
 }
