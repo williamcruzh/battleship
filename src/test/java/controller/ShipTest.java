@@ -34,19 +34,19 @@ public class ShipTest {
 		int m = 10, n = 10;
 		
 		ship.setOrientation(Orientation.VERTICAL);
-		ship.setPosition(5, 0);
+		ship.setPosition(4, 0);
 		assertTrue(ship.fitsInBoard(m, n));
 		
 		ship.setOrientation(Orientation.VERTICAL);
-		ship.setPosition(6, 0);
+		ship.setPosition(5, 0);
 		assertFalse(ship.fitsInBoard(m, n));
 		
 		ship.setOrientation(Orientation.HORIZONTAL);
-		ship.setPosition(0, 5);
+		ship.setPosition(0, 4);
 		assertTrue(ship.fitsInBoard(m, n));
 		
 		ship.setOrientation(Orientation.HORIZONTAL);
-		ship.setPosition(0, 6);
+		ship.setPosition(0, 5);
 		assertFalse(ship.fitsInBoard(m, n));
 		
 		// Condition coverage
@@ -65,6 +65,7 @@ public class ShipTest {
 		ship.setOrientation(Orientation.VERTICAL);
 		ship.setPosition(-1, 0);
 		assertFalse(ship.fitsInBoard(m, n));
+		ship = new Ship(11);
 		
 		// 0 1 1
 		ship.setOrientation(Orientation.VERTICAL);
@@ -101,6 +102,7 @@ public class ShipTest {
 		ship.setOrientation(Orientation.HORIZONTAL);
 		ship.setPosition(0, -1);
 		assertFalse(ship.fitsInBoard(m, n));
+		ship = new Ship(11);
 		
 		// 0 1 1
 		ship.setOrientation(Orientation.HORIZONTAL);
