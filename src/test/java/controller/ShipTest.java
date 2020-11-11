@@ -181,6 +181,7 @@ public class ShipTest {
 		
 		m = 2; n = 7;
 		ship.setOrientation(Orientation.HORIZONTAL);
+		ship.setPosition(0, 1);
 
 		// 0 0 0
 		// Impossible 
