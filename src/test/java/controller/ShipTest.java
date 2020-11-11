@@ -313,4 +313,27 @@ public class ShipTest {
 		assertTrue(ship.isSunk());
 		
 	}
+	@Test
+	public void updateCoordinatesTest() {
+		Ship ship;
+		Coord coordinate[]=null;
+		
+		//ship size = 1
+		ship = new Ship(1);
+		ship.setOrientation(Orientation.VERTICAL);
+		ship.setPosition(2,3);
+		ship.updateCoordinates();
+		coordinate[0] = new Coord(2,3);
+		assertTrue(coordinate==ship.getCoordinates());
+		
+		//ship = 2 
+		ship = new Ship(2);
+		ship.setOrientation(Orientation.VERTICAL);
+		ship.setPosition(3,5);
+		ship.updateCoordinates();
+		coordinate[0] = new Coord(3,5);
+		coordinate[1] = new Coord(4,5);
+		assertTrue(coordinate==ship.getCoordinates());
+	
+	}
 }
