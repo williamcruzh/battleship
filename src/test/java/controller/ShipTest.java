@@ -336,16 +336,18 @@ public class ShipTest {
 	public void updateCoordinatesTest() {
 		Ship ship;
 		
-		
-		
 		//ship size = 1
 		ship = new Ship(1);
 		ship.setOrientation(Orientation.VERTICAL);
 		ship.setPosition(2,3);
 		ship.updateCoordinates();
 		Coord coordinate[] = new Coord[1];
-		coordinate[0] = new Coord(2,3);; 
-		assertTrue(coordinate==ship.getCoordinates());
+		coordinate[0] = new Coord(2,3);
+		Coord coord[] = ship.getCoordinates();
+		for(int i = 0; i<1;i++) {
+			assertEquals(coordinate[i].i,coord[i].i);
+			assertEquals(coordinate[i].j,coord[i].j);
+		}
 		
 		//ship = 2 Vertical
 		ship = new Ship(2);
@@ -355,7 +357,11 @@ public class ShipTest {
 		Coord coordinate2[] = new Coord[2];
 		coordinate2[0] = new Coord(3,5);
 		coordinate2[1] = new Coord(4,5);
-		assertTrue(coordinate==ship.getCoordinates());
+		Coord coord2[] = ship.getCoordinates();
+		for(int i = 0; i<2;i++) {
+			assertEquals(coordinate2[i].i,coord2[i].i);
+			assertEquals(coordinate2[i].j,coord2[i].j);
+		}
 		
 		//ship = 2 Horizontal
 		ship = new Ship(2);
@@ -364,7 +370,11 @@ public class ShipTest {
 		ship.updateCoordinates();
 		coordinate2[0] = new Coord(1,1);
 		coordinate2[1] = new Coord(1,2);
-		assertTrue(coordinate==ship.getCoordinates());
+		Coord coord3[] = ship.getCoordinates();
+		for(int i = 0; i<2;i++) {
+			assertEquals(coordinate2[i].i,coord3[i].i);
+			assertEquals(coordinate2[i].j,coord3[i].j);
+		}
 		
 		//ship = 4 Vertical
 		ship = new Ship(4);
@@ -376,10 +386,14 @@ public class ShipTest {
 		coordinate4[1] = new Coord(3,7);
 		coordinate4[2] = new Coord(4,7);
 		coordinate4[3] = new Coord(5,7);
-		assertTrue(coordinate==ship.getCoordinates());
+		Coord coord4[] = ship.getCoordinates();
+		for(int i = 0; i<4;i++) {
+			assertEquals(coordinate4[i].i,coord4[i].i);
+			assertEquals(coordinate4[i].j,coord4[i].j);
+		}
 		
 		//ship = 4 Horizontal
-		ship = new Ship(2);
+		ship = new Ship(4);
 		ship.setOrientation(Orientation.HORIZONTAL);
 		ship.setPosition(6,3);
 		ship.updateCoordinates();
@@ -387,6 +401,10 @@ public class ShipTest {
 		coordinate4[1] = new Coord(6,4);
 		coordinate4[2] = new Coord(6,5);
 		coordinate4[3] = new Coord(6,6);
-		assertTrue(coordinate==ship.getCoordinates());
+		Coord coord5[] = ship.getCoordinates();
+		for(int i = 0; i<4;i++) {
+			assertEquals(coordinate4[i].i,coord5[i].i);
+			assertEquals(coordinate4[i].j,coord5[i].j);
+		}
 	}
 }
