@@ -326,7 +326,7 @@ public class ShipTest {
 		coordinate[0] = new Coord(2,3);
 		assertTrue(coordinate==ship.getCoordinates());
 		
-		//ship = 2 
+		//ship = 2 Vertical
 		ship = new Ship(2);
 		ship.setOrientation(Orientation.VERTICAL);
 		ship.setPosition(3,5);
@@ -334,6 +334,36 @@ public class ShipTest {
 		coordinate[0] = new Coord(3,5);
 		coordinate[1] = new Coord(4,5);
 		assertTrue(coordinate==ship.getCoordinates());
-	
+		
+		//ship = 2 Horizontal
+		ship = new Ship(2);
+		ship.setOrientation(Orientation.HORIZONTAL);
+		ship.setPosition(1,1);
+		ship.updateCoordinates();
+		coordinate[0] = new Coord(1,1);
+		coordinate[1] = new Coord(1,2);
+		assertTrue(coordinate==ship.getCoordinates());
+		
+		//ship = 4 Vertical
+		ship = new Ship(4);
+		ship.setOrientation(Orientation.VERTICAL);
+		ship.setPosition(2,7);
+		ship.updateCoordinates();
+		coordinate[0] = new Coord(2,7);
+		coordinate[1] = new Coord(3,7);
+		coordinate[2] = new Coord(4,7);
+		coordinate[3] = new Coord(5,7);
+		assertTrue(coordinate==ship.getCoordinates());
+		
+		//ship = 4 Horizontal
+		ship = new Ship(2);
+		ship.setOrientation(Orientation.HORIZONTAL);
+		ship.setPosition(6,3);
+		ship.updateCoordinates();
+		coordinate[0] = new Coord(6,3);
+		coordinate[1] = new Coord(6,4);
+		coordinate[2] = new Coord(6,5);
+		coordinate[3] = new Coord(6,6);
+		assertTrue(coordinate==ship.getCoordinates());
 	}
 }
