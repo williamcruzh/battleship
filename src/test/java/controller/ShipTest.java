@@ -1,5 +1,6 @@
 package controller;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -188,6 +189,11 @@ public class ShipTest {
 		
 		// 1 1 1
 		ship.isHit(0, 5);
+	}
+	@Test
+	public void setOrientationTest() {
+		Ship ship = new Ship(5);
+		assertEquals(ship.setOrientation(Orientation.VERTICAL), Orientation.VERTICAL);
 	}
 	@Test
 	public void TestisSunk() {
