@@ -77,6 +77,18 @@ public class PlayerTest {
 		MockPlayer player = new MockPlayer(3, 3, ships, coordinatesOfSteps,
 				                           orientationsOfSteps);
 		player.positionShips();
+		List<int[][]> boardsBackup = player.getBoardsBackup();
+		assertArrayEquals(boardsBackup.get(1), new int[][] {{0, 0, 0},
+														    {0, 0, 0},
+	    													{0, 0, 0}});
+		int[][] thirdAndFourBoard = new int[][] {{1, 0, 0},
+										         {1, 0, 0},
+										         {0, 0, 0}};
+		assertArrayEquals(boardsBackup.get(2), thirdAndFourBoard);
+		assertArrayEquals(boardsBackup.get(3), thirdAndFourBoard);
+		assertArrayEquals(player.board, new int[][] {{1, 0, 1},
+		                							 {1, 0, 1},
+		                							 {0, 0, 0}});
 	}
 	@Test
 	public void testIsWinner() {
