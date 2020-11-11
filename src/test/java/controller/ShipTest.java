@@ -150,18 +150,81 @@ public class ShipTest {
 	}
 	@Test
 	public void TestisSunk() {
+		Ship ship;
+			
+		//case ship vertical sunk = true
+		ship = new Ship(3);
+		ship.setOrientation(Orientation.VERTICAL);
+		ship.setPosition(2,4);
+		ship.shoot(2,4);
+		ship.shoot(3,4);
+		ship.shoot(4,4);
+		assertTrue(ship.isSunk());
+		
+		//case ship vertical sunk = false
+		ship = new Ship(3);
+		ship.setOrientation(Orientation.VERTICAL);
+		ship.setPosition(2,4);
+		ship.shoot(2,4);
+		ship.shoot(4,4);
+		assertFalse(ship.isSunk());
+	}
+	@Test
+	public void Testshoot() {
 		
 		Ship ship;
 		
-		//case n = 0
-		ship = new MockShip(0,false);
-		assertFalse(ship.isSunk());
-		// case n = 1 false
-		ship = new MockShip(0,true);
-		assertFalse(ship.isSunk());
-		// case n = 1 true
-		ship = new MockShip(1,false);
+		//case ship size = 3. Vertical. hit zone 2. not sunk
+		ship = new Ship(3);
+		ship.setOrientation(Orientation.VERTICAL);
+		ship.setPosition(2,4);
+		ship.shoot(3,4);
+		assertTrue(ship.isHit(3, 4));
 		assertFalse(ship.isSunk());
 		
+		//case ship size = 3. Vertical. hit zone 3. not sunk
+		ship = new Ship(3);
+		ship.setOrientation(Orientation.VERTICAL);
+		ship.setPosition(2,4);
+		ship.shoot(4,4);
+		assertTrue(ship.isHit(4, 4));
+		assertFalse(ship.isSunk());
+		
+		//case ship size = 5. Vertical. hit zone 1. not sunk
+		ship = new Ship(5);
+		ship.setOrientation(Orientation.VERTICAL);
+		ship.setPosition(2,4);
+		ship.shoot(2,4);
+		assertTrue(ship.isHit(2, 4));
+		assertFalse(ship.isSunk());
+			
+		//case ship size = 5. Vertical. hit zone 5. not sunk
+		ship = new Ship(5);
+		ship.setOrientation(Orientation.VERTICAL);
+		ship.setPosition(2,4);
+		ship.shoot(7,4);
+		assertTrue(ship.isHit(7, 4));
+		assertFalse(ship.isSunk());
+		
+		//case ship size 3 sunk. Vertical
+		ship = new Ship(3);
+		ship.setOrientation(Orientation.VERTICAL);
+		ship.setPosition(2,4);
+		ship.shoot(2,4);
+		ship.shoot(3,4);
+		ship.shoot(4,4);
+		assertTrue(ship.isSunk());
+		
+		
+		//case ship size 5 sunk. Vertical
+		ship = new Ship(5);
+		ship.setOrientation(Orientation.VERTICAL);
+		ship.setPosition(2,4);
+		ship.shoot(2,4);
+		ship.shoot(3,4);
+		ship.shoot(4,4);
+		ship.shoot(5,4);
+		ship.shoot(6,4);
+		assertTrue(ship.isSunk());
 	}
 }
