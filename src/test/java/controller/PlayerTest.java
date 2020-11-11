@@ -15,14 +15,20 @@ public class PlayerTest {
 		Player player;
 		List<Ship> shipList = null;
 		
-		
 		int[][] board= new int[10][10];
 		player=new MockPlayer(board,shipList);
 		Ship ship = new Ship(2);
 		ship.setPosition(5, 2);
 		ship.updateCoordinates();
-		player.setShipZone(board, ship, 1, 5);
-		assertTrue(5==player.board[4][2]);	
+		player.setShipZone(board, ship, 2, 5);
+		assertTrue(5==player.board[4][1]);
+		assertTrue(5==player.board[4][2]);
+		assertTrue(5==player.board[4][3]);
+		assertTrue(5==player.board[5][1]);
+		assertTrue(5==player.board[5][3]);
+		assertTrue(5==player.board[6][1]);
+		assertTrue(5==player.board[6][2]);
+		assertTrue(5==player.board[6][3]);
 	}
 	@Test
 	public void shootTest() {
