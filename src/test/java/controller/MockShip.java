@@ -1,9 +1,10 @@
-package battleship;
+package controller;
 import java.util.List;
 
 public class MockShip extends Ship {
-
-	
+	public MockShip(int size) {
+		super(size);
+	}
 	public MockShip(int numTrue, boolean numF) { 
 		
 		for(int i = 0; i < numTrue;i++) {
@@ -15,6 +16,7 @@ public class MockShip extends Ship {
 		}
 		
 	}
-	
-	
+	public Orientation getOrientation() {
+		return orientation;
+	}
 }

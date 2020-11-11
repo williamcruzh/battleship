@@ -192,8 +192,11 @@ public class ShipTest {
 	}
 	@Test
 	public void setOrientationTest() {
-		Ship ship = new Ship(5);
-		assertEquals(ship.setOrientation(Orientation.VERTICAL), Orientation.VERTICAL);
+		MockShip ship = new MockShip(5);
+		ship.setOrientation(Orientation.VERTICAL);
+		assertEquals(ship.getOrientation(), Orientation.VERTICAL);
+		ship.setOrientation(Orientation.HORIZONTAL);
+		assertEquals(ship.getOrientation(), Orientation.HORIZONTAL);
 	}
 	@Test
 	public void TestisSunk() {
