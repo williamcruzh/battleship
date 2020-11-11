@@ -8,6 +8,17 @@ import org.junit.jupiter.api.Test;
 
 public class ShipTest {
 	/*
+	 * Statement Coverage
+	 */
+	@Test
+	public void ShipTest() {
+		MockShip ship = new MockShip(3);
+		
+		assertEquals(ship.getI(), 0);
+		assertEquals(ship.getJ(), 0);
+		assertEquals(ship.getI(), 0);
+	}
+	/*
 	 * Here we are doing decision coverage, at first. And condition coverage
 	 * later. 
 	 */

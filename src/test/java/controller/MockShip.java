@@ -14,9 +14,23 @@ public class MockShip extends Ship {
 		if (numF) {
 			this.zone.add(false);
 		}
-		
+	}
+	public int getI() {
+		return i;
+	}
+	public int getJ() {
+		return j;
+	}
+	public int getSize() {
+		return size;
 	}
 	public Orientation getOrientation() {
 		return orientation;
+	}
+	public boolean[] getDamagedZones() {
+		return damagedZones;
+	}
+	public boolean getSunkAttribute() {
+		return sunk;
 	}
 }
