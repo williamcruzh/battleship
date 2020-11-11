@@ -147,6 +147,47 @@ public class ShipTest {
 		// 0 1 0
 		ship.isHit(0, 1);
 		
+		// 0 1 1
+		ship.isHit(0, 0);
+		
+		// 1 0 0
+		ship.isHit(6, 1);
+		
+		// 1 0 1
+		ship.isHit(6, 0);
+		
+		// 1 1 0
+		ship.isHit(5, 1);
+		
+		// 1 1 1
+		ship.isHit(5, 0);
+		
+		m = 2; n = 7;
+		ship.setOrientation(Orientation.HORIZONTAL);
+
+		// 0 0 0
+		// Impossible 
+		
+		// 0 0 1
+		// Impossible 
+		
+		// 0 1 0
+		ship.isHit(1, 0);
+		
+		// 0 1 1
+		ship.isHit(0, 0);
+		
+		// 1 0 0
+		ship.isHit(1, 6);
+		
+		// 1 0 1
+		ship.isHit(0, 6);
+		
+		// 1 1 0
+		ship.isHit(1, 5);
+		
+		// 1 1 1
+		ship.isHit(0, 5);
 	}
 	@Test
 	public void TestisSunk() {
