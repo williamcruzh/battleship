@@ -56,7 +56,7 @@ public class PlayerTest {
 	}
 	
 	@Test
-	public void testIsWinner() {
+	public void isWinnerTest() {
 		
 		int[][] board;
 		Player player;
@@ -89,5 +89,32 @@ public class PlayerTest {
 		player.opposingPlayer.nhits=4;
 		player.opposingPlayer.graceShot = true;
 		assertFalse(player.isWinner());	
+	}
+	@Test
+	public void tieTest() {
+		
+		int[][] board;
+		Player player;
+
+		
+		//case true
+		board = new int[][] {{0}};
+		List<Ship> shipList = Arrays.asList(new Ship(1),new Ship(1));
+		List<Ship> shipList2 = Arrays.asList(new Ship(1),new Ship(1));
+		shipList.get(0).sunk = true;
+		shipList.get(1).sunk = true;
+		shipList2.get(0).sunk = true;
+		shipList2.get(1).sunk = true;
+		
+		player = new MockPlayer(board,shipList);
+		player.setOpponent(new MockPlayer(board,shipList2));
+		assertTrue(player.tie());
+		
+		//case false
+		shipList.get(1).sunk = false;
+		
+		player = new MockPlayer(board,shipList);
+		player.setOpponent(new MockPlayer(board,shipList2));
+		assertFalse(player.tie());
 	}
 }
