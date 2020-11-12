@@ -54,94 +54,40 @@ public class PlayerTest {
 		player.shoot(0, 0);
 		assertThrows(Exception.class, () -> player.shoot(0, 0));
 	}
-	@Test 
-	public void positionShipsTest() {
-		List<Ship> ships = Arrays.asList(new Ship[] {new Ship(2),
-				                                     new Ship(2)});
-		Coord[] coordinatesOfSteps = {new Coord(2, 0),
-				                      new Coord(0, 0),
-				                      new Coord(0, 1),
-				                      new Coord(0, 2)};
-	    Orientation[] orientationsOfSteps = {Orientation.VERTICAL,
-	    		                             Orientation.VERTICAL,
-	    		                             Orientation.VERTICAL,
-	    		                             Orientation.VERTICAL};
-		MockPlayer player = new MockPlayer(3, 3, ships, coordinatesOfSteps,
-				                           orientationsOfSteps);
-		player.positionShips();
-		List<int[][]> boardsBackup = player.getBoardsBackup();
-		assertArrayEquals(boardsBackup.get(1), new int[][] {{0, 0, 0},
-														    {0, 0, 0},
-	    													{0, 0, 0}});
-		int[][] thirdAndFourBoard = new int[][] {{1, 0, 0},
-										         {1, 0, 0},
-										         {0, 0, 0}};
-		assertArrayEquals(boardsBackup.get(2), thirdAndFourBoard);
-		assertArrayEquals(boardsBackup.get(3), thirdAndFourBoard);
-		assertArrayEquals(player.board, new int[][] {{1, 0, 1},
-		                							 {1, 0, 1},
-		                							 {0, 0, 0}});
-	}
+	
 	@Test
 	public void testIsWinner() {
 		
 		int[][] board;
-		MockPlayer player;
-		List<Ship> ShipList = null;
-		
-		//case n=0
-		player = new MockPlayer();
-		board = new int[][] {{0}};
-		ShipList = null;
-		player.setOpponent(new MockPlayer(board,ShipList));
-		assertFalse(player.IsWinner());	
-		
-		//case n = 1 true
-		player = new MockPlayer();
-		board = new int[][] {{0}};
-		ShipList.add(new MockShip(3, false));
-		player.setOpponent(new MockPlayer(board,ShipList));
-		assertTrue(player.IsWinner());
-		
-		//case n = 1 false
-		ShipList.clear();
-		player = new MockPlayer();
-		board = new int[][] {{0}};
-		ShipList.add(new MockShip(2, true));
-		player.setOpponent(new MockPlayer(board,ShipList));
-		assertFalse(player.IsWinner());
-		
-		//case n = 2 true
-		ShipList.clear();
-		player = new MockPlayer();
-		board = new int[][] {{0}};
-		player.setOpponent(new MockPlayer(board,ShipList));
-		player.makeShipList(2,false);
-		assertTrue(player.IsWinner());
+		Player player;
+		List<Ship> shipList = null;
 		
 		//case n = 2 false
-		ShipList.clear();
 		player = new MockPlayer();
 		board = new int[][] {{0}};
-		player.setOpponent(new MockPlayer(board,ShipList));
-		player.makeShipList(1,true);
-		assertFalse(player.IsWinner());
+		shipList = Arrays.asList(new Ship(1),new Ship(1));
+		shipList.get(0).sunk = true;
+		shipList.get(1).sunk = false;
 		
-		//case n = 4 true
-		ShipList.clear();
-		player = new MockPlayer();
-		board = new int[][] {{0}};
-		player.setOpponent(new MockPlayer(board,ShipList));
-		player.makeShipList(4,false);
-		assertTrue(player.IsWinner());
+		player.setOpponent(new MockPlayer(board,shipList));
+		player.nhits=4;
+		player.opposingPlayer.nhits=2;
+		player.opposingPlayer.graceShot = false;
+		assertFalse(player.isWinner());
 		
-		//case n = 4 false
-		ShipList.clear();
-		player = new MockPlayer();
-		board = new int[][] {{0}};
-		player.setOpponent(new MockPlayer(board,ShipList));
-		player.makeShipList(3,true);
-		assertFalse(player.IsWinner());
+		//case n = 2 true
+		shipList.get(1).sunk = true;
 		
+		player.setOpponent(new MockPlayer(board,shipList));
+		player.nhits=5;
+		player.opposingPlayer.nhits=3;
+		player.opposingPlayer.graceShot = false;
+		assertTrue(player.isWinner());
+		
+		//case n = 2 false with graceShot
+		player.setOpponent(new MockPlayer(board,shipList));	
+		player.opposingPlayer.nhits=4;
+		player.opposingPlayer.graceShot = true;
+		assertFalse(player.isWinner());	
 	}
 }
