@@ -54,7 +54,34 @@ public class PlayerTest {
 		player.shoot(0, 0);
 		assertThrows(Exception.class, () -> player.shoot(0, 0));
 	}
-	
+	@Test 
+	public void positionShipsTest() {
+		List<Ship> ships = Arrays.asList(new Ship[] {new Ship(2),
+				                                     new Ship(2)});
+		Coord[] coordinatesOfSteps = {new Coord(2, 0),
+				                      new Coord(0, 0),
+				                      new Coord(0, 1),
+				                      new Coord(0, 2)};
+	    Orientation[] orientationsOfSteps = {Orientation.VERTICAL,
+	    		                             Orientation.VERTICAL,
+	    		                             Orientation.VERTICAL,
+	    		                             Orientation.VERTICAL};
+		MockPlayer player = new MockPlayer(3, 3, ships, coordinatesOfSteps,
+				                           orientationsOfSteps);
+		player.positionShips();
+		List<int[][]> boardsBackup = player.getBoardsBackup();
+		assertArrayEquals(boardsBackup.get(1), new int[][] {{0, 0, 0},
+														    {0, 0, 0},
+	    													{0, 0, 0}});
+		int[][] thirdAndFourBoard = new int[][] {{1, 0, 0},
+										         {1, 0, 0},
+										         {0, 0, 0}};
+		assertArrayEquals(boardsBackup.get(2), thirdAndFourBoard);
+		assertArrayEquals(boardsBackup.get(3), thirdAndFourBoard);
+		assertArrayEquals(player.board, new int[][] {{1, 0, 1},
+		                							 {1, 0, 1},
+		                							 {0, 0, 0}});
+	}
 	@Test
 	public void testIsWinner() {
 		
