@@ -10,12 +10,15 @@ public class MockPlayer extends Player {
 	private List<int[][]> boardsBackup;
 	
 	public MockPlayer() {
-		super(10, 10, null);
+		super(1, 1, null);
 	}
 	public MockPlayer(int[][] board, List<Ship> ships) {
-		super(10, 10, ships);
+		super(1, 1, null);
 		this.board = board;
 		this.ships = ships;
+		for(Ship ship: ships) {
+			ship.updateCoordinates();
+		}
 	}
 	public MockPlayer(int m, int n, List<Ship> ships, Coord[] coordinatesOfSteps, 
 			          Orientation[] orientationsOfSteps) {

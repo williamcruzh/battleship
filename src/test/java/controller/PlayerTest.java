@@ -1,7 +1,11 @@
 package controller;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.util.Arrays;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -28,31 +32,31 @@ public class PlayerTest {
 	}
 	@Test
 	public void shootTest() {
-		int[][] board;
+		// assertArrayEquals(expected, actual), but in 
+		// this test assertArrayEquals(actual, expected).
+		Player player = new MockPlayer();
+		int[][] board = new int[][] {{0, 0, 0, 0},
+			   						 {0, 1, 1, 0},
+			   						 {0, 0, 0, 0}};
+		Ship ship = new MockShip(2, 1, 1, Orientation.HORIZONTAL);
+		List<Ship> ships = Arrays.asList(new Ship[] {ship});
+		player.setOpponent(new MockPlayer(board, ships));  
 		
-		player = new MockPlayer();
-		board = new int[][] {{0}};
-		player.setOpponent(new MockPlayer(board, null));
 		player.shoot(0, 0);
-		assertEquals(board[0][0], 1);
+		assertArrayEquals(player.opposingPlayer.board, new int[][] {{2, 0, 0, 0},
+			   						           	            		{0, 1, 1, 0},
+			   						           	            		{0, 0, 0, 0}});
 		
-		player = new MockPlayer();
-		board = new int[][] {{3}};
-		player.setOpponent(new MockPlayer(board, null));
-		player.shoot(0, 0);
-		assertEquals(board[0][0], 4);
+		player.shoot(1, 1);
+		assertArrayEquals(player.opposingPlayer.board, new int[][] {{2, 0, 0, 0},
+			   						           	            		{0, 3, 1, 0},
+			   						           	            		{0, 0, 0, 0}});
 		
-		player = new MockPlayer();
-		board = new int[][] {{1}};
-		player.setOpponent(new MockPlayer(board, null));
-		player.shoot(0, 0);
-		assertThrows(Exception.class, () -> player.shoot(0, 0));
+		player.shoot(1, 2);
+		assertArrayEquals(player.opposingPlayer.board, new int[][] {{2, 2, 2, 2},
+			   						           	            		{2, 4, 4, 2},
+			   						           	            		{2, 2, 2, 2}});
 		
-		player = new MockPlayer();
-		board = new int[][] {{4}};
-		player.setOpponent(new MockPlayer(board, null));
-		player.shoot(0, 0);
-		assertThrows(Exception.class, () -> player.shoot(0, 0));
 	}
 	
 	@Test

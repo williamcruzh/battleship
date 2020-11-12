@@ -140,15 +140,21 @@ public class ShipTest {
 		ship.setOrientation(Orientation.VERTICAL);
 		ship.setPosition(0, 0);
 		
+		// orientation=true
+		// insideVerticalShip()=true
 		assertTrue(ship.isHit(6, 0));
 		
+		// insideVerticalShip()=false
 		assertFalse(ship.isHit(7, 0));
 		
 		m = 1; n = 8;
 		ship.setOrientation(Orientation.HORIZONTAL);
 		
+		// orientation=false
+		// insideHorizontalShip()=true
 		assertTrue(ship.isHit(0, 6));
 		
+		// insideHorizontalShip()=false
 		assertFalse(ship.isHit(0, 7));
 		
 		// Condition coverage
