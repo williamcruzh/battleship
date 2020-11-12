@@ -60,12 +60,11 @@ public class PlayerTest {
 		
 		int[][] board;
 		Player player;
-		List<Ship> shipList = null;
 		
 		//case n = 2 false
 		player = new MockPlayer();
 		board = new int[][] {{0}};
-		shipList = Arrays.asList(new Ship(1),new Ship(1));
+		List<Ship> shipList = Arrays.asList(new Ship(1),new Ship(1));
 		shipList.get(0).sunk = true;
 		shipList.get(1).sunk = false;
 		
@@ -95,7 +94,6 @@ public class PlayerTest {
 		
 		int[][] board;
 		Player player;
-
 		
 		//case true
 		board = new int[][] {{0}};
@@ -110,8 +108,16 @@ public class PlayerTest {
 		player.setOpponent(new MockPlayer(board,shipList2));
 		assertTrue(player.tie());
 		
-		//case false
+		//case false fail first player
 		shipList.get(1).sunk = false;
+		
+		player = new MockPlayer(board,shipList);
+		player.setOpponent(new MockPlayer(board,shipList2));
+		assertFalse(player.tie());
+		
+		//case false fail second player
+		shipList.get(1).sunk = true;
+		shipList2.get(0).sunk = false;
 		
 		player = new MockPlayer(board,shipList);
 		player.setOpponent(new MockPlayer(board,shipList2));
