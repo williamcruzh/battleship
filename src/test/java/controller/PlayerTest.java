@@ -1,11 +1,7 @@
 package controller;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-
-import java.util.Arrays;
-import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -15,24 +11,20 @@ public class PlayerTest {
 	 * Here we are doing decision coverage. 
 	 */
 	@Test
-	public void setShipZone() {
-		Player player;
-		List<Ship> shipList = null;
+	public void setShipZoneTest() {
+		MockPlayer player;
 		
-		int[][] board= new int[10][10];
+		int[][] board= new int[3][3];
+		Ship ship = new Ship(1);
+		List<Ship> shipList = Arrays.asList(ship);
+		
 		player=new MockPlayer(board,shipList);
-		Ship ship = new Ship(2);
-		ship.setPosition(5, 2);
-		ship.updateCoordinates();
-		player.setShipZone(board, ship, 2, 5);
-		assertTrue(5==player.board[4][1]);
-		assertTrue(5==player.board[4][2]);
-		assertTrue(5==player.board[4][3]);
-		assertTrue(5==player.board[5][1]);
-		assertTrue(5==player.board[5][3]);
-		assertTrue(5==player.board[6][1]);
-		assertTrue(5==player.board[6][2]);
-		assertTrue(5==player.board[6][3]);
+		player.ships.get(0).setPosition(1, 1);
+		player.ships.get(0).updateCoordinates();
+		
+		player.setShipZone(board, player.ships.get(0), 2, 1);
+		int[][] boardExample = new int[][] {{1,1,1},{1,0,1},{1,1,1}};
+		assertArrayEquals(player.board,boardExample);
 	}
 	@Test
 	public void shootTest() {
@@ -62,34 +54,7 @@ public class PlayerTest {
 		player.shoot(0, 0);
 		assertThrows(Exception.class, () -> player.shoot(0, 0));
 	}
-	@Test 
-	public void positionShipsTest() {
-		List<Ship> ships = Arrays.asList(new Ship[] {new Ship(2),
-				                                     new Ship(2)});
-		Coord[] coordinatesOfSteps = {new Coord(2, 0),
-				                      new Coord(0, 0),
-				                      new Coord(0, 1),
-				                      new Coord(0, 2)};
-	    Orientation[] orientationsOfSteps = {Orientation.VERTICAL,
-	    		                             Orientation.VERTICAL,
-	    		                             Orientation.VERTICAL,
-	    		                             Orientation.VERTICAL};
-		MockPlayer player = new MockPlayer(3, 3, ships, coordinatesOfSteps,
-				                           orientationsOfSteps);
-		player.positionShips();
-		List<int[][]> boardsBackup = player.getBoardsBackup();
-		assertArrayEquals(boardsBackup.get(1), new int[][] {{0, 0, 0},
-														    {0, 0, 0},
-	    													{0, 0, 0}});
-		int[][] thirdAndFourBoard = new int[][] {{1, 0, 0},
-										         {1, 0, 0},
-										         {0, 0, 0}};
-		assertArrayEquals(boardsBackup.get(2), thirdAndFourBoard);
-		assertArrayEquals(boardsBackup.get(3), thirdAndFourBoard);
-		assertArrayEquals(player.board, new int[][] {{1, 0, 1},
-		                							 {1, 0, 1},
-		                							 {0, 0, 0}});
-	}
+	
 	@Test
 	public void testIsWinner() {
 		
