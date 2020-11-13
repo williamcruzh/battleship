@@ -8,12 +8,47 @@ public class MockPlayer extends Player {
     private Orientation[] orientationsOfSteps;
     private int i;
 	private List<int[][]> boardsBackup;
+	private boolean overrideShoot;
+	private boolean overridePlay;
+	private boolean overrideIsWinner;
+	private boolean overrideTie;
+	private List<Boolean> turns;
+	private boolean turnNumber;
+	private boolean ender;
+	private int wayOfEnd;
 	
 	public MockPlayer() {
 		super(1, 1, null);
+		overrideShoot = false;
+		overridePlay = false;
+		overrideIsWinner = false;
+		overrideTie = false;
+	}
+	public MockPlayer(boolean withoutShoot) {
+		super(1, 1, null);
+		overrideShoot = withoutShoot;
+		overridePlay = false;
+		overrideIsWinner = false;
+		overrideTie = false;
+	}
+	public MockPlayer(List<Boolean> turns, boolean turnNumber, boolean ender, 
+			int wayOfEnd) {
+		super(1, 1, null);
+		overrideShoot = false;
+		overridePlay = true;
+		overrideIsWinner = true;
+		overrideTie = true;
+		this.turns = turns;
+		this.turnNumber = turnNumber;
+		this.ender = ender;
+		this.wayOfEnd = wayOfEnd;
 	}
 	public MockPlayer(int[][] board, List<Ship> ships) {
 		super(1, 1, null);
+		overrideShoot = false;
+		overridePlay = false;
+		overrideIsWinner = false;
+		overrideTie = false;
 		this.board = board;
 		this.ships = ships;
 		for(Ship ship: ships) {
@@ -23,15 +58,44 @@ public class MockPlayer extends Player {
 	public MockPlayer(int m, int n, List<Ship> ships, Coord[] coordinatesOfSteps, 
 			          Orientation[] orientationsOfSteps) {
 		super(m, n, ships);
+		overrideShoot = false;
+		overridePlay = false;
+		overrideIsWinner = false;
+		overrideTie = false;
 		this.coordinatesOfSteps = coordinatesOfSteps;
 		this.orientationsOfSteps = orientationsOfSteps;
 		i = 0;
 		boardsBackup = new Vector();
 	}
-	@Override
-	public void aim(Integer i, Integer j) {
-		// TODO Auto-generated method stub
+	public void drawLoses() {
 		
+	}
+	public void drawIsWinner() {
+		
+	}
+	public void drawTies() {
+		
+	}
+	@Override
+	public void play() {
+		if(!overridePlay) {
+			super.play();
+		}
+		else {
+			turns.add(turnNumber);
+		}
+	}
+	public void aim(Integer i, Integer j) {
+		
+	}
+	@Override 
+	public void shoot(int i, int j) {
+		if(!overrideShoot) {
+			super.shoot(i, j);
+		}
+		else {
+			
+		}
 	}
 	public List<int[][]> getBoardsBackup() {
 		return boardsBackup;
@@ -61,6 +125,15 @@ public class MockPlayer extends Player {
 		
 		if(sunkF) {
 			this.ships.add(new MockShip(2, true));
+		}
+	}
+	@Override
+	public boolean isWinner() {
+		if(!overrideIsWinner) {
+			return super.isWinner();
+		}
+		else {
+			if(turns.size())
 		}
 	}
 }
