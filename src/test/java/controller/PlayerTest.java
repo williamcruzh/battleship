@@ -107,37 +107,39 @@ public class PlayerTest {
 	}
 	@Test
 	public void isWinnerTest() {
-		
 		int[][] board;
 		Player player;
+		List<Ship> shipList = null;
 		
-		//case n = 2 false
+		//Partition 1: Win without option to a graceShot
 		player = new MockPlayer();
 		board = new int[][] {{0}};
-		List<Ship> shipList = Arrays.asList(new Ship(1),new Ship(1));
+		shipList = Arrays.asList(new Ship(1),new Ship(1));
 		shipList.get(0).sunk = true;
-		shipList.get(1).sunk = false;
-		
-		player.setOpponent(new MockPlayer(board,shipList));
-		player.nhits=4;
-		player.opposingPlayer.nhits=2;
-		player.opposingPlayer.graceShot = false;
-		assertFalse(player.isWinner());
-		
-		//case n = 2 true
 		shipList.get(1).sunk = true;
-		
-		player.setOpponent(new MockPlayer(board,shipList));
 		player.nhits=5;
+		player.setOpponent(new MockPlayer(board,shipList));
 		player.opposingPlayer.nhits=3;
-		player.opposingPlayer.graceShot = false;
+		
 		assertTrue(player.isWinner());
 		
-		//case n = 2 false with graceShot
-		player.setOpponent(new MockPlayer(board,shipList));	
+		//Partition 2: Not win
+		shipList.get(1).sunk = false;
+		assertFalse(player.isWinner());
+		
+		//Partition 3: Option to graceShot
+		shipList.get(1).sunk = true;
 		player.opposingPlayer.nhits=4;
-		player.opposingPlayer.graceShot = true;
-		assertFalse(player.isWinner());	
+
+		assertFalse(player.isWinner());
+		assertTrue(player.opposingPlayer.canGraceShot);
+		
+		//Partition 4: GraceShot failed
+		assertTrue(player.isWinner());	
+		
+		//Partition 5: GraceShot hited
+		player.opposingPlayer.graceShotHit=true;
+		assertFalse(player.isWinner());
 	}
 	@Test
 	public void tieTest() {
