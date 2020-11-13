@@ -26,9 +26,12 @@ public class PlayerTest {
 		
 		player=new MockPlayer(board,shipList);
 		player.ships.get(0).setPosition(1, 1);
+		player.ships.get(0).updateCoordinates();
 		
 		player.setShip(board, player.ships.get(0), 1);
+		int[][] boardExample = new int[][] {{0,0,0},{0,1,0},{0,0,0}};
 		assertTrue(player.board[1][1]==1);
+		assertArrayEquals(player.board,boardExample);
 	}
 	@Test
 	public void setShipZoneTest() {
