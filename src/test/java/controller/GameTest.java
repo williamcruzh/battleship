@@ -2,6 +2,7 @@ package controller;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Arrays;
 import java.util.List;
@@ -9,7 +10,27 @@ import java.util.Vector;
 
 import org.junit.jupiter.api.Test;
 
+import view.MockGraphics;
+
 public class GameTest {
+	@Test
+	public void GameTest() {
+		Main.graphics = null;
+		Game game,
+		
+		assertThrows(Exception.class, () -> {Game game = 
+				new Game(Integer.MIN_VALUE, Integer.MIN_VALUE, new int[] {5});});
+		assertThrows(Exception.class, () -> {Game game = 
+				new Game(-150, -150, new int[] {5});});
+		assertThrows(Exception.class, () -> {Game game = 
+				new Game(0, 0, new int[] {5});});
+		// Limit value
+		assertThrows(Exception.class, () -> {Game game = 
+				new Game(1, 1, new int[] {5});});
+		// Border value
+		game = new Game(2, 2, new int[] {1});});
+		Main.graphics = new MockGraphics(new Coord[]{new Coord(1, 1)}, new Integer[]{0});
+	}
 	@Test
 	public void playTest() {
 		List<Integer> actual = new Vector();
