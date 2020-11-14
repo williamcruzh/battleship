@@ -175,4 +175,9 @@ public class PlayerTest {
 		player.setOpponent(new MockPlayer(board,shipList2));
 		assertFalse(player.tie());
 	}
+	@Test
+	void restTest() {
+		MockPlayer player = new MockPlayer(true);
+		player.play();
+	}
 }
