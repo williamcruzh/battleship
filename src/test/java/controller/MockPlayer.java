@@ -12,9 +12,10 @@ public class MockPlayer extends Player {
 	private boolean overridePlay;
 	private boolean overrideIsWinner;
 	private boolean overrideTie;
-	private List<Boolean> turns;
-	private boolean turnNumber;
-	private boolean ender;
+	private List<Integer> actual;
+	private int playerNumber;
+	private int ender;
+	private int nLastPlayByPlayer;
 	private int wayOfEnd;
 	
 	public MockPlayer() {
@@ -31,16 +32,17 @@ public class MockPlayer extends Player {
 		overrideIsWinner = false;
 		overrideTie = false;
 	}
-	public MockPlayer(List<Boolean> turns, boolean turnNumber, boolean ender, 
-			int wayOfEnd) {
+	public MockPlayer(List<Integer> actual, int playerNumber, int ender, 
+			          int nLastPlayByPlayer, int wayOfEnd) {
 		super(1, 1, null);
 		overrideShoot = false;
 		overridePlay = true;
 		overrideIsWinner = true;
 		overrideTie = true;
-		this.turns = turns;
-		this.turnNumber = turnNumber;
+		this.actual = actual;
+		this.playerNumber = playerNumber;
 		this.ender = ender;
+		this.nLastPlayByPlayer = nLastPlayByPlayer;
 		this.wayOfEnd = wayOfEnd;
 	}
 	public MockPlayer(int[][] board, List<Ship> ships) {
@@ -82,7 +84,11 @@ public class MockPlayer extends Player {
 			super.play();
 		}
 		else {
-			turns.add(turnNumber);
+			if(actual.size() > nLastPlayByPlayer) {
+				System.out.println("Exception: Error in test of play() in Game"); 
+				System.exit(1);
+			}
+			actual.add(playerNumber);
 		}
 	}
 	public void aim(Integer i, Integer j) {
@@ -133,7 +139,27 @@ public class MockPlayer extends Player {
 			return super.isWinner();
 		}
 		else {
-			if(turns.size())
+			if(actual.size() == nLastPlayByPlayer && playerNumber == ender
+					&& wayOfEnd == 0) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+	}
+	@Override
+	public boolean tie() {
+		if(!overrideTie) {
+			return super.tie();
+		}
+		else {
+			if(actual.size() == nLastPlayByPlayer && wayOfEnd == 1) {
+				return true;
+			}
+			else {
+				return false;
+			}
 		}
 	}
 }

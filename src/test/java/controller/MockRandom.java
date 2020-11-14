@@ -1,21 +1,16 @@
 package controller;
 
-import java.util.List;
 import java.util.Random;
 
 @SuppressWarnings("serial")
 public class MockRandom extends Random {
-	private List<Boolean> turns;
-	private int i;
+	private boolean firstPlayer;
 	
-	public MockRandom(List<Boolean> turns) {
-		this.turns = turns;
-		i = 0;
+	public MockRandom(int firstPlayer) {
+		this.firstPlayer = (firstPlayer == 1);
 	}
 	@Override
 	public boolean nextBoolean() {
-		boolean turn = turns.get(i);
-		i++;
-		return turn;
+		return firstPlayer;
 	}
 }
