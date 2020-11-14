@@ -177,7 +177,7 @@ public class PlayerTest {
 	}
 	@Test
 	void restTest() {
-		MockPlayer player = new MockPlayer(true);
+		MockPlayer player = new MockPlayer(true); // Overrides aim and shoot
 		player.play();
 	}
 }
