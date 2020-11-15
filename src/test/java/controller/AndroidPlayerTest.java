@@ -5,14 +5,15 @@ import java.util.*;
 import org.junit.jupiter.api.Test;
 
 class AndroidPlayerTest {
-
 	@Test
 	public void restTest() {
 		AndroidPlayer player;
 		List<Ship> shipList= Arrays.asList(new Ship(3),new Ship(1),new Ship(1),new Ship(4));
-		player = new AndroidPlayer(8,8,shipList);	
+		player = new AndroidPlayer(8,8,shipList);
+		player.drawIsWinner();
+		player.drawLoses();
+		player.drawTies();
 	} 
-	
 	@Test
 	public void aimTest() {
 		AndroidPlayer player;
@@ -34,12 +35,12 @@ class AndroidPlayerTest {
 		player2.ships.get(1).updateCoordinates();
 		player2.setShip(board2, player.ships.get(1), 1);
 		
-		Coord coord=player.aim();
+		Coord coord = player.aim();
 		player.shoot(coord.i,coord.j);
-		coord=player.aim();
+		coord = player.aim();
 		player.shoot(coord.i,coord.j);
-		coord=player.aim();
+		coord = player.aim();
 		player.shoot(coord.i,coord.j);
-	}
+		}
 
 }
