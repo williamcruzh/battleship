@@ -24,14 +24,22 @@ class AndroidPlayerTest {
 		player2 = new MockPlayer(board2,shipList2);
 		player.setOpponent(player2);
 		
+		player2.ships.get(0).setOrientation(Orientation.VERTICAL);
 		player2.ships.get(0).setPosition(0, 0);
+		player2.ships.get(0).updateCoordinates();
 		player2.setShip(board2, player.ships.get(0), 1);
-			
+		
+		player2.ships.get(1).setOrientation(Orientation.HORIZONTAL);
+		player2.ships.get(1).setPosition(2,2);
+		player2.ships.get(1).updateCoordinates();
+		player2.setShip(board2, player.ships.get(1), 1);
+		
 		Coord coord=player.aim();
 		player.shoot(coord.i,coord.j);
-
-		
-	
+		coord=player.aim();
+		player.shoot(coord.i,coord.j);
+		coord=player.aim();
+		player.shoot(coord.i,coord.j);
 	}
 
 }
