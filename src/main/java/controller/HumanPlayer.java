@@ -5,16 +5,19 @@ import java.util.List;
 public class HumanPlayer extends Player {
 	public HumanPlayer(int m, int n, List<Ship> ships) {
 		super(m, n, ships);
+		/* 
+		   TODO: if menu say it, print a default board.
+		 */
 		positionShips();
 	}
 	public void drawLoses() {
-		
+		Main.graphics.drawLose();
 	}
 	public void drawIsWinner() {
-		
+		Main.graphics.drawWin();
 	}
 	public void drawTies() {
-		
+		Main.graphics.drawTie();
 	}
 	public void positionShip(Ship ship) {
 		Main.graphics.drawCreationBoardsScreen(board);
