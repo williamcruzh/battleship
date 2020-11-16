@@ -43,7 +43,19 @@ public class BattleshipConsole implements Graphics {
 					}
 				}
 			}
+			else if(line.length() == 3) {
+				int j;
+				if((j = letters.indexOf(line.charAt(0))) != -1 && 
+					digits.contains(line.substring(1, 2)) && 
+					digits.contains(line.substring(2))) {
+					int i = Integer.parseInt(line.substring(1, 3)) - 1;
+					if(i < 26) {
+						return new Coord(i, j);
+					}
+				}
+			}
 			System.out.println("Invalid coordinate format");
+			System.out.println("Remember, interface only supports boards smaller than 26x26");
 		}
 	}
 	public void drawOutOfBoard() {
@@ -53,17 +65,30 @@ public class BattleshipConsole implements Graphics {
 		System.out.println("Square already selected");
 	}
 	private void drawBoard(int[][] board, boolean cleanWater, boolean cleanShipZone, 
-			               boolean shootedWater) {
+			               boolean shootedWater, boolean shootedShipZone,
+			               boolean sunkedShipZone) {
 		int m = board.length;
 		int n = board[0].length;
 		String padding = "  ";
 		
 		System.out.print(padding);
 		System.out.print("   ");
+		// Letter row
+		for(int j = 0; j < n; j++) {
+			System.out.print(letters.charAt(j) + " ");
+		}
+		System.out.println();
 		// Board
 		for(int i = 0; i < m; i++) {
 			System.out.print(padding);
 			String number = Integer.toString(i + 1);
+			if(number.length() == 1) {
+				System.out.print(" " + number);
+			}
+			else {
+				System.out.print(number);
+			}
+			System.out.print(" ");
 			for(int j = 0; j < n; j++) {
 				if(cleanWater && board[i][j] == 0) {
 					System.out.print(" ");
@@ -74,6 +99,12 @@ public class BattleshipConsole implements Graphics {
 				else if(shootedWater && board[i][j] == 2) {
 					System.out.print("·");
 				}
+				else if(shootedShipZone && board[i][j] == 3) {
+					System.out.print("x");
+				}
+				else if(sunkedShipZone && board[i][j] == 4) {
+					System.out.print("#");
+				}
 				else {
 					System.out.print(" ");
 				}
@@ -83,14 +114,14 @@ public class BattleshipConsole implements Graphics {
 		}
 	}
 	public void drawPlayerBoards(int[][] board, int[][] opposingBoard) {
-		drawBoard(board, true, true, true);
-		drawBoard(opposingBoard, true, false, true);
+		drawBoard(board, true, true, true, true, true);
+		drawBoard(opposingBoard, true, false, true, true, true);
 	}
 	public void drawCreationBoardsScreen(int[][] board) {
-		drawBoard(board, true, true, false);
+		drawBoard(board, true, true, false, false, false);
 	}
 	public void drawLose() {
-		System.out.println("There have been a losing person");
+		System.out.println("You lose");
 	}
 	public void drawWin() {
 		System.out.println("You Win");
@@ -98,7 +129,8 @@ public class BattleshipConsole implements Graphics {
 	public void drawTie() {
 		System.out.println("There is Tie");
 	}
-	public Coord drawMoveShip() {
+	public Coord drawMoveShip(int shipSize) {
+		System.out.println("Move a ship of " + shipSize + " squares");
 		return getCoordinates();
 	}
 	public Orientation drawRotateShip() {
@@ -133,7 +165,7 @@ public class BattleshipConsole implements Graphics {
 		return orientation;
 	}
 	public Coord drawShoot() {
-		System.out.println("Shoot!");
+		System.out.println("Shoot");
 		return getCoordinates();
 	}
 }
