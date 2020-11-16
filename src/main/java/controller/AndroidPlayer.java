@@ -12,7 +12,7 @@ public class AndroidPlayer extends Player {
 	public AndroidPlayer(int m, int n, List<Ship> ships) {
 		super(m, n, ships);
 		random = new Random();
-		positionShips(ships.size());
+		positionShips();
 	}
 	public void drawLoses() {
 		
@@ -24,7 +24,8 @@ public class AndroidPlayer extends Player {
 		
 	}
 	protected void positionShip(Ship ship) {
-		ship.setPosition(random.nextInt(board.length), random.nextInt(board[0].length));
+		int m = board.length; int n = board[0].length;
+		ship.setPosition(random.nextInt(m), random.nextInt(n));
 		if(random.nextBoolean()) {
 			ship.setOrientation(Orientation.VERTICAL);
 		}
@@ -47,6 +48,21 @@ public class AndroidPlayer extends Player {
 			do {
 				superiorLimit.i++;
 				if(superiorLimit.i >= m) {
+					superiorLimitInside = false;
+				}
+			}
+			while(superiorLimitInside && opposingPlayer.board[superiorLimit.i][superiorLimit.j] == 3);
+		}
+		else {
+			do {
+				inferiorLimit.j--;
+				if(inferiorLimit.j < 0) {
+					inferiorLimitInside = false;
+				}
+			} while(inferiorLimitInside && opposingPlayer.board[inferiorLimit.i][inferiorLimit.j] == 3);
+			do {
+				superiorLimit.j++;
+				if(superiorLimit.j >= n) {
 					superiorLimitInside = false;
 				}
 			}
