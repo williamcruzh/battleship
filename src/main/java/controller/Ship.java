@@ -13,7 +13,7 @@ public class Ship {
 	/*private*/ Coord[] coordinates;
 	
 	public Ship() {
-		// Nothing
+		
 	}
 	public Ship(int size) {
 		this.size = size;
@@ -45,31 +45,17 @@ public class Ship {
 		}
 	}
 	public Coord[] getCoordinates() {
-		if(orientation == Orientation.VERTICAL) {
-			int i;
-			for(int k = 0; k < size; ++k) {
-				i = this.i + k;
-				coordinates[k] = new Coord(i, this.j);
-			}
-		}
-		else {
-			int j;
-			for(int k = 0; k < size; ++k) {
-				j = this.j + k;
-				coordinates[k] = new Coord(this.i, j);
-			}
-		}
 		return coordinates;
 	}
 	public int getSize() {
-		return damagedZones.length;
+		return size;
 	}
 	public void setOrientation(Orientation orientation) {
-		// Needs some checks
 		this.orientation = orientation;
 	}
 	public void setPosition(int i, int j) {
-		this.i = i; this.j = j;
+		this.i = i;
+		this.j = j;
 	}
 	public boolean isHit(int i, int j) {
 		if(orientation == Orientation.VERTICAL) {
