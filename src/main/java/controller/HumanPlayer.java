@@ -7,6 +7,19 @@ public class HumanPlayer extends Player {
 		super(m, n, ships);
 		positionShips();
 	}
+	public void drawLoses() {
+		
+	}
+	public void drawIsWinner() {
+		
+	}
+	public void drawTies() {
+		
+	}
+	public void positionShip(Ship ship) {
+		Main.graphics.drawCreationBoardsScreen(board);
+		Coord coord = Main.graphics.drawMoveShip(ship.getSize());
+	}
 	public Coord aim() {
 		int i, j;
 		while(true) {
