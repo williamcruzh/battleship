@@ -19,6 +19,13 @@ public abstract class Player {
 				board[i][j] = 0;
 			}
 		}
+		List<Ship> newList = Arrays.asList(new Ship[ships.size()]);
+		for(int i = 0; i < ships.size(); i++) {
+			newList.set(i, new Ship(ships.get(i).getSize()));
+		}
+		this.ships = newList;
+		canGraceShot = false;
+	}
 	public abstract Coord aim();
 	public abstract void drawLoses();
 	public abstract void drawIsWinner();
@@ -29,13 +36,13 @@ public abstract class Player {
 		shoot(i, j);
 	}
 	public void setOpponent(Player opposingPlayer) {
-		opposingPlayer = opposingPlayer;
+		this.opposingPlayer = opposingPlayer;
 	}
 	private int[][] copy2DArray(int[][] source) {
 		int[][] destination = new int[source.length][source[0].length];
 		for(int i = 0; i < source.length; ++i) {
 			for(int j = 0; j < source[0].length; ++j) {
-				source[i][j] == destination[i][j];
+				destination[i][j] = source[i][j];
 			}
 		}
 		return destination;
@@ -56,8 +63,8 @@ public abstract class Player {
 	}
 	protected abstract void positionShip(Ship ship);
 	protected void setShip(int[][] board, Ship ship, int paddingValue) {
-		for(Coord coordinates: ship.getCoordinates()) {
-			board[coordinates.i][coordinates.j] = paddingValue;
+		for(Coord coordinate: ship.getCoordinates()) {
+			board[coordinate.i][coordinate.j] = paddingValue;
 		}
 	}
 	protected void setShipZone(int[][] board, Ship ship, int shipPaddingValue, int shipZonePaddingValue) {
@@ -98,6 +105,15 @@ public abstract class Player {
 				return false;
 			}
 		}
+		if((this.opposingPlayer.nhits+1 == this.nhits)&& !opposingPlayer.canGraceShot) {
+				opposingPlayer.canGraceShot = true;
+				return false;				
+			}
+		if(opposingPlayer.graceShotHit) {
+			return false;
+		}
+		
+		return true;
 	}
 	public boolean tie() {
 		boolean tie = true;
@@ -108,5 +124,14 @@ public abstract class Player {
 				break;
 			}
 		}
+		if(tie) {
+			for(int i = 0; i < this.opposingPlayer.ships.size();i++) {
+				if(!this.opposingPlayer.ships.get(i).isSunk()) {
+					tie = false;
+					break;
+				}
+			}
+		}
+		return tie;
 	}
 }
