@@ -103,14 +103,14 @@ public class Ship {
 			int i;
 			for(int k = 0; k < size; ++k) {
 				i = this.i + k;
-				coordinates[k] = new Coord(i, j);
+				coordinates[k] = new Coord(i, this.j);
 			}
 		}
 		else {
 			int j;
 			for(int k = 0; k < size; ++k) {
 				j = this.j + k;
-				coordinates[k] = new Coord(i, j);
+				coordinates[k] = new Coord(this.i, j);
 			}
 		}
 	}
