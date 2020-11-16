@@ -14,6 +14,15 @@ public class AndroidPlayer extends Player {
 		random = new Random();
 		positionShips(ships.size());
 	}
+	public void drawLoses() {
+		// Nothing
+	}
+	public void drawIsWinner() {
+		// Nothing
+	}
+	public void drawTies() {
+		// Nothing
+	}
 	protected void positionShip(Ship ship) {
 		ship.setPosition(random.nextInt(board.length), random.nextInt(board[0].length));
 		if(random.nextBoolean()) {
@@ -22,6 +31,34 @@ public class AndroidPlayer extends Player {
 		else {
 			ship.setOrientation(Orientation.HORIZONTAL);
 		}
+	}
+	private List<Coord> getFrontAndBack(int i, int j, Orientation orientation, int m, int n) {
+		List<Coord> limits = new Vector<>();
+		Coord inferiorLimit = new Coord(i, j);
+		Coord superiorLimit = new Coord(i, j);
+		boolean inferiorLimitInside = true, superiorLimitInside = true;
+		if(orientation == Orientation.VERTICAL) {
+			do {
+				inferiorLimit.i--;
+				if(inferiorLimit.i < 0) {
+					inferiorLimitInside = false;
+				}
+			} while(inferiorLimitInside && opposingPlayer.board[inferiorLimit.i][inferiorLimit.j] == 3);
+			do {
+				superiorLimit.i++;
+				if(superiorLimit.i >= m) {
+					superiorLimitInside = false;
+				}
+			}
+			while(superiorLimitInside && opposingPlayer.board[superiorLimit.i][superiorLimit.j] == 3);
+		}
+		if(inferiorLimitInside) {
+			limits.add(inferiorLimit);
+		}
+		if(superiorLimitInside) {
+			limits.add(superiorLimit);
+		}
+		return limits;
 	}
 	public Coord aim() {
 		int i, j = 0;
