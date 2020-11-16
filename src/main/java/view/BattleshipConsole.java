@@ -15,11 +15,16 @@ public class BattleshipConsole implements Graphics {
 	/*private*/ final String digits;
 	
 	public BattleshipConsole(int height, int width) throws Exception {
+		if(height > 26 || width > 26) {
+			throw new Exception("Interface only supports boards smaller than 26x26");
+		}
 		charsetEncoder = Charset.forName("US-ASCII").newEncoder();
 		letters = "abcdefghijklmnopqrstuvwxyz";
 		digits = "0123456789";
 		
 		scanner = new Scanner(System.in);
+		System.out.println("Welcome to battleship");
+		System.out.println("Coordinates format examples: A1, Z26.");
 	}
 	/*private*/ Coord getCoordinates() {
 		while (true) {
@@ -42,10 +47,10 @@ public class BattleshipConsole implements Graphics {
 		}
 	}
 	public void drawOutOfBoard() {
-		System.out.println("Out of board");
+		System.out.println("Coordinates selected are out of board");
 	}
 	public void drawSquareAlreadySelected() {
-		System.out.println("Already Selected");
+		System.out.println("Square already selected");
 	}
 	private void drawBoard(int[][] board, boolean cleanWater, boolean cleanShipZone, 
 			               boolean shootedWater) {
@@ -88,18 +93,26 @@ public class BattleshipConsole implements Graphics {
 		System.out.println("There have been a losing person");
 	}
 	public void drawWin() {
-		System.out.println("There have been a winnig person");
+		System.out.println("You Win");
 	}
 	public void drawTie() {
-		System.out.println("a tie");
+		System.out.println("There is Tie");
 	}
 	public Coord drawMoveShip() {
 		return getCoordinates();
 	}
 	public Orientation drawRotateShip() {
 		Orientation orientation = Orientation.VERTICAL;
+		System.out.println("Rotate a ship");
 		String line; boolean isNo = false;
 		do {
+			if(orientation == Orientation.VERTICAL) {
+				System.out.println("Ship orientation: " + "o" + System.lineSeparator() + 
+			                        "                  o");
+			}
+			else {
+				System.out.println("Ship orientation: " + "oo");
+			}
 			System.out.println("Do you want to rotate the ship? [y or n]");
 			line = scanner.nextLine();
 			if(line.equals("y")) {
@@ -114,7 +127,7 @@ public class BattleshipConsole implements Graphics {
 				isNo = true;
 			}
 			else {
-				System.out.println("Invalid format.");
+				System.out.println("Invalid format");
 			}
 		} while (!isNo);
 		return orientation;
