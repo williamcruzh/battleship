@@ -18,16 +18,16 @@ public class Ship {
 	public Ship(int size) {
 		this.size = size;
 		i = 0; j = 0;
-		orientation = Orientation.HORIZONTAL;
-		damagedZones = new boolean[size];
+		orientation = Orientation.VERTICAL;
+		damagedZones = new boolean[size]; // all false in default
 		sunk = false;
-		coordinates = new Coord[size + 1];
+		coordinates = new Coord[size];
 	}
 	public boolean fitsInBoard(final int m, final int n) {
-		if(i <= 0 || i >= n || j <= 0 || j >= m) {
+		if(i < 0 || i >= m || j < 0 || j >= n) {
 			return false;
 		}
-		if(orientation == Orientation.HORIZONTAL) {
+		if(orientation == Orientation.VERTICAL) {
 			if(i + size <= m) {
 				return true;
 			}
@@ -73,7 +73,7 @@ public class Ship {
 	}
 	public boolean isHit(int i, int j) {
 		if(orientation == Orientation.VERTICAL) {
-			if(this.i < i && i < this.i + this.size && this.j == j) {
+			if(this.i <= i && i < this.i + this.size && this.j == j) {
 				return true;
 			}
 			else {
@@ -81,7 +81,7 @@ public class Ship {
 			}
 		}
 		else {
-			if(this.j < j && j < this.j + this.size && this.i == i) {
+			if(this.j <= j && j < this.j + this.size && this.i == i) {
 				return true;
 			}
 			else {
@@ -90,12 +90,7 @@ public class Ship {
 		}
 	}
 	public boolean isSunk() {
-		for(boolean damagedZone: damagedZones) {
-			if(!damagedZone) {
-				return false;
-			}
-		}
-		return true;
+		return sunk;
 	}
 	public void shoot(int i, int j) {
 		int k;
@@ -106,5 +101,16 @@ public class Ship {
 			k = j - this.j;
 		}
 		damagedZones[k] = true;
+		boolean sunk = true;
+		for(boolean damagedZone: damagedZones) {
+			if(!damagedZone) {
+				sunk = false;
+				break;
+			}
+		}
+		if(sunk) {
+			this.sunk = true;
+		}
+	}
 	}
 }
