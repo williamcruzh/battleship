@@ -29,6 +29,12 @@ public class Game {
 			}
 			ships[i] = new Ship(shipsSizes[i]);
 		}
+		List<Ship> shipsList = Arrays.asList(ships);
+		player1 = new HumanPlayer(height, width, shipsList);
+		player2 = new AndroidPlayer(height, width, shipsList);
+		player1.setOpponent(player2);
+		player2.setOpponent(player1);
+		random = new Random();
 	}
 	public void play() {
 		boolean lastPlayer = random.nextBoolean();
@@ -70,6 +76,21 @@ public class Game {
 				   break;
 				}
 				player1.play();
+			}
+			if(player1.isWinner()) {
+				player1.drawIsWinner();
+				player2.drawLoses();
+			    break;
+			}
+			else if(player2.isWinner()) {
+			   player1.drawLoses();
+			   player2.drawIsWinner();
+			   break;
+			}
+			else if(player1.tie()) {
+			   player1.drawTies();
+			   player2.drawTies();
+			   break;
 			}
 		}
 	}
