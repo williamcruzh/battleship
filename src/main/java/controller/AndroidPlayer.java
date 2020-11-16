@@ -15,13 +15,13 @@ public class AndroidPlayer extends Player {
 		positionShips(ships.size());
 	}
 	public void drawLoses() {
-		// Nothing
+		
 	}
 	public void drawIsWinner() {
-		// Nothing
+		
 	}
 	public void drawTies() {
-		// Nothing
+		
 	}
 	protected void positionShip(Ship ship) {
 		ship.setPosition(random.nextInt(board.length), random.nextInt(board[0].length));
@@ -85,6 +85,30 @@ public class AndroidPlayer extends Player {
 			else if (i - 1 >= 0 && (opposingPlayer.board[i - 1][j] == 0 ||
 					opposingPlayer.board[i - 1][j] == 1)) {
 				coordinates.add(new Coord(i - 1, j));
+			}
+			if(j + 1 < n && opposingPlayer.board[i][j + 1] == 3) {
+				orientation = Orientation.HORIZONTAL;
+				onlyOneZoneDamaged = false;
+			}
+			else if (j + 1 < n && (opposingPlayer.board[i][j + 1] == 0 ||
+					 opposingPlayer.board[i][j + 1] == 1)) {
+				coordinates.add(new Coord(i, j + 1));
+			}
+			if(i + 1 < m && opposingPlayer.board[i + 1][j] == 3) {
+				orientation = Orientation.VERTICAL;
+				onlyOneZoneDamaged = false;
+			}
+			else if (i + 1 < m && (opposingPlayer.board[i + 1][j] == 0 ||
+					 opposingPlayer.board[i + 1][j] == 1)) {
+				coordinates.add(new Coord(i + 1, j));
+			}
+			if(j - 1 >= 0 && opposingPlayer.board[i][j - 1] == 3) {
+				orientation = Orientation.HORIZONTAL;
+				onlyOneZoneDamaged = false;
+			}
+			else if(j - 1 >= 0 && (opposingPlayer.board[i][j - 1] == 0 ||
+					 opposingPlayer.board[i][j - 1] == 1)) {
+				coordinates.add(new Coord(i, j - 1));
 			}
 			Coord coordinate;
 			if(onlyOneZoneDamaged) {
