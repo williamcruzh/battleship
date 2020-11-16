@@ -98,5 +98,20 @@ public class Ship {
 			this.sunk = true;
 		}
 	}
+	public void updateCoordinates() {
+		if(orientation == Orientation.VERTICAL) {
+			int i;
+			for(int k = 0; k < size; ++k) {
+				i = this.i + k;
+				coordinates[k] = new Coord(i, j);
+			}
+		}
+		else {
+			int j;
+			for(int k = 0; k < size; ++k) {
+				j = this.j + k;
+				coordinates[k] = new Coord(i, j);
+			}
+		}
 	}
 }
