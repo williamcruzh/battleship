@@ -31,9 +31,8 @@ public abstract class Player {
 	public abstract void drawIsWinner();
 	public abstract void drawTies();
 	public void play() {
-		Integer i, j;
-		aim(i, j);
-		shoot(i, j);
+		Coord coord = aim();
+		shoot(coord.i, coord.j);
 	}
 	public void setOpponent(Player opposingPlayer) {
 		this.opposingPlayer = opposingPlayer;
@@ -58,6 +57,20 @@ public abstract class Player {
 				ship.updateCoordinates();
 				fitsInBoard = ship.fitsInBoard(m, n);
 				thereIsColision = false;
+				if(fitsInBoard) {
+					for(Coord coordinate: ship.getCoordinates()) {
+						if(mockBoard[coordinate.i][coordinate.j] == 1) {
+							thereIsColision = true;
+							break;
+						}
+					}
+				}
+				if(fitsInBoard && !thereIsColision) {
+					setShip(mockBoard, ship, 1);
+					setShipZone(mockBoard, ship, 1, 1);
+					setShip(board, ship, 1);
+					break;
+				}
 			}
 		}
 	}
@@ -85,6 +98,26 @@ public abstract class Player {
 			if(j + 1 < n && board[i][j + 1] != shipPaddingValue) {
 				board[i][j + 1] = shipZonePaddingValue;
 			}
+			// 4
+			if(i + 1 < m &&  j + 1 < n && board[i + 1][j + 1] != shipPaddingValue) {
+				board[i + 1][j + 1] = shipZonePaddingValue;
+			}
+			// 5
+			if(i + 1 < m && board[i + 1][j] != shipPaddingValue) {
+				board[i + 1][j] = shipZonePaddingValue;
+			}
+			// 6
+			if(i + 1 < m &&  j - 1 >= 0 && board[i + 1][j - 1] != shipPaddingValue) {
+				board[i + 1][j - 1] = shipZonePaddingValue;
+			}
+			// 7
+			if(j - 1 >= 0 && board[i][j - 1] != shipPaddingValue) {
+				board[i][j - 1] = shipZonePaddingValue;
+			}
+			// 8
+			if(i - 1 >= 0 && j - 1 >= 0 && board[i - 1][j - 1] != shipPaddingValue) {
+				board[i - 1][j - 1] = shipZonePaddingValue;
+			}
 		}
 	}
 	public void shoot(int i, int j) {
@@ -98,6 +131,24 @@ public abstract class Player {
 				break;
 			}
 		}
+		if(isWater) {
+			opposingPlayer.board[i][j] = 2;
+			if(canGraceShot) {
+				graceShotHit = false;
+			}
+		}
+		else {
+			if(canGraceShot) {
+				graceShotHit = true;
+			}
+			opposingPlayer.board[i][j] = 3;
+			hittedShip.shoot(i, j);
+			if(hittedShip.isSunk()){
+				setShip(opposingPlayer.board, hittedShip, 4);
+				setShipZone(opposingPlayer.board, hittedShip, 4, 2);
+			}
+		}
+	}
 	public boolean isWinner() { 
 		List<Ship> shipList =  opposingPlayer.ships;
 		for(int i = 0; i < shipList.size();i++) {
