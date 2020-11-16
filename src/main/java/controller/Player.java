@@ -19,6 +19,14 @@ public abstract class Player {
 				board[i][j] = 0;
 			}
 		}
+	public abstract Coord aim();
+	public abstract void drawLoses();
+	public abstract void drawIsWinner();
+	public abstract void drawTies();
+	public void play() {
+		Integer i, j;
+		aim(i, j);
+		shoot(i, j);
 	}
 	public void setOpponent(Player opposingPlayer) {
 		opposingPlayer = opposingPlayer;
@@ -31,6 +39,20 @@ public abstract class Player {
 			}
 		}
 		return destination;
+	}
+	protected void positionShips() {
+		int m = board.length; int n = board[0].length;
+		int[][] mockBoard = copy2DArray(board);
+		boolean fitsInBoard;
+		boolean thereIsColision;
+		for(Ship ship: ships) {
+			while(true) {
+				positionShip(ship);
+				ship.updateCoordinates();
+				fitsInBoard = ship.fitsInBoard(m, n);
+				thereIsColision = false;
+			}
+		}
 	}
 	protected abstract void positionShip(Ship ship);
 	protected void setShip(int[][] board, Ship ship, int paddingValue) {
@@ -66,6 +88,23 @@ public abstract class Player {
 				isWater = false;
 				hittedShip = ship;
 				nhits++;
+				break;
+			}
+		}
+	public boolean isWinner() { 
+		List<Ship> shipList =  opposingPlayer.ships;
+		for(int i = 0; i < shipList.size();i++) {
+			if(!shipList.get(i).isSunk()) {
+				return false;
+			}
+		}
+	}
+	public boolean tie() {
+		boolean tie = true;
+	
+		for(int i = 0; i < this.ships.size();i++) {
+			if(!this.ships.get(i).isSunk()) {
+				tie = false;
 				break;
 			}
 		}
