@@ -21,6 +21,69 @@ public class BattleshipConsole implements Graphics {
 		
 		scanner = new Scanner(System.in);
 	}
+	/*private*/ Coord getCoordinates() {
+		while (true) {
+			System.out.println("Enter coordinate: ");
+			String line = scanner.nextLine();
+			if(!charsetEncoder.canEncode(line)) {
+				
+			}
+			else if(line.length() == 2) {
+				int j;
+				if((j = letters.indexOf(line.charAt(0))) != -1 && 
+					digits.contains(line.substring(1))) {
+					int i = Integer.parseInt(line.substring(1)) - 1;
+					if(i < 26) {
+						return new Coord(i, j);
+					}
+				}
+			}
+			System.out.println("Invalid coordinate format");
+		}
+	}
+	public void drawOutOfBoard() {
+		System.out.println("Out of board");
+	}
+	public void drawSquareAlreadySelected() {
+		System.out.println("Already Selected");
+	}
+	private void drawBoard(int[][] board, boolean cleanWater, boolean cleanShipZone, 
+			               boolean shootedWater) {
+		int m = board.length;
+		int n = board[0].length;
+		String padding = "  ";
+		
+		System.out.print(padding);
+		System.out.print("   ");
+		// Board
+		for(int i = 0; i < m; i++) {
+			System.out.print(padding);
+			String number = Integer.toString(i + 1);
+			for(int j = 0; j < n; j++) {
+				if(cleanWater && board[i][j] == 0) {
+					System.out.print(" ");
+				}
+				else if(cleanShipZone && board[i][j] == 1) {
+					System.out.print("o");
+				}
+				else if(shootedWater && board[i][j] == 2) {
+					System.out.print("·");
+				}
+				else {
+					System.out.print(" ");
+				}
+				System.out.print(" ");
+			}
+			System.out.println();
+		}
+	}
+	public void drawPlayerBoards(int[][] board, int[][] opposingBoard) {
+		drawBoard(board, true, true, true);
+		drawBoard(opposingBoard, true, false, true);
+	}
+	public void drawCreationBoardsScreen(int[][] board) {
+		drawBoard(board, true, true, false);
+	}
 	public void drawLose() {
 		System.out.println("There have been a losing person");
 	}
@@ -29,6 +92,9 @@ public class BattleshipConsole implements Graphics {
 	}
 	public void drawTie() {
 		System.out.println("a tie");
+	}
+	public Coord drawMoveShip() {
+		return getCoordinates();
 	}
 	public Orientation drawRotateShip() {
 		Orientation orientation = Orientation.VERTICAL;
@@ -52,5 +118,9 @@ public class BattleshipConsole implements Graphics {
 			}
 		} while (!isNo);
 		return orientation;
+	}
+	public Coord drawShoot() {
+		System.out.println("Shoot!");
+		return getCoordinates();
 	}
 }
