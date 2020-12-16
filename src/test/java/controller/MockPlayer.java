@@ -162,4 +162,9 @@ public class MockPlayer extends Player {
 			}
 		}
 	}
+	@Override
+	public Coord aim() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

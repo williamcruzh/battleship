@@ -1,0 +1,13 @@
+board:10,10
+ships:4,a6,horizontal;3,b2,horizontal;3,e4,horizontal;3,f7,vertical;2,i2,horizontal;2,i6,horizontal;2,d8,vertical;1,c4,vertical;1,b8,vertical 
+resultShips:(0,5)(0,6)(0,7)(0,8);(1,1)(1,2)(1,3);(4,3)(4,4)(4,5);(5,6)(6,6)(7,6);(8,1)(8,2);(8,5)(8,6);(3,7)(4,7);(2,3);(1,7)
+manyshoot:a6;a7;a8;a9;b2;b8;c4;
+resultManyShoots:sunk;hit;hit;hit;hit;hit;hit;sunk;sunk;
+
+nGames:4
+bGame:4,4 4,4 5,5 6,6
+spGame:2,a1,horizontal;2,b2,vertical 2,a1,horizontal 3,a1,horizontal;2,b2,vertical;1,c3,vertical 3,a1,horizontal;3,b2,vertical;2,c3,vertical;1,d3,vertical
+stGame:b2;c1 a1;a2 a1;c1;b3 b3;b1;d4
+rtGame:lose;wine;lose;lose
+
+
